@@ -1,0 +1,42 @@
+import math
+
+def getnthprime(nth):
+    y = 10000000
+    ctr = 1
+    for i in range(3,y+1,2):
+        # i is the candidate
+        prime = True
+        for c in range(2,i//2):
+            # does every other integer c divide the candidate i? 
+            if i%c == 0: 
+                prime = False
+                break
+        if prime==True: 
+            #print(i)
+            ctr += 1
+        if ctr == nth:
+            break
+    print(i)
+    
+# Program that prints sum of logs of primes from 2 to some integer n
+
+n = 100000
+ctr = 1
+sump = math.log(2) #sum of primes
+lst = [] #list of primes
+for i in range(3,n+1,2):
+    # candidate i 
+    prime = True
+    for c in range(2,i//2):
+        # does c divide the candidate i? 
+        if i%c == 0: 
+            prime = False
+            break
+    if prime==True: 
+        ctr += 1
+        sump += math.log(i)#+math.log(2)
+    lst.append(i)
+      
+print("sum of primes =",sump)
+print("n =",n)
+print("ratio:", n/sump)
