@@ -1,0 +1,62 @@
+# Problem 3
+
+def ppacks(nugs):
+    packse = False
+    for a in range((nugs//6)+1):
+        for b in range((nugs//9)+1):
+            for c in range((nugs//20)+1):
+                if 6*a + 9*b + 20*c == nugs:
+                    #pack combos exist
+                    packse = True
+                    #print("possible combos:", a, "6p" , b, "9p", c, "20p")
+    return packse
+
+tot = int(input("Enter total number of nuggets: "))
+ctr = 0
+dne = []
+
+for n in range(tot+1):
+    # if there are 6 consecutive number of nuggets that can be bought
+    if ppacks(n) == True and ppacks(n+1) == True and ppacks(n+2) == True and ppacks(n+3) == True and ppacks(n+4) == True and ppacks(n+5) == True: 
+        ctr += 1
+    #If not, n cannot be bought in exact quantity, save n 
+    elif ppacks(n) == False: 
+        dne.append(n)
+
+#if ctr >= 6: 
+#    print(ctr)
+#else: 
+#    print("Not consecutive")
+
+# list of number of nuggets which CANNOT be bought exactly up to given number
+print('''Largest number of McNuggets that cannot be bought in exact quantity:''',dne[-1])
+
+
+# Problem 4 
+
+bestSoFar = 0         # keeps track of largest number of McNuggets that cannot be bought exactly
+packages = (2,19,23)   # variable that contains package sizes
+
+def ppacksgen(nugs):
+    packse = False
+    for a in range((nugs//packages[0])+1):
+        for b in range((nugs//packages[1])+1):
+            for c in range((nugs//packages[2])+1):
+                if (packages[0])*a + (packages[1])*b + (packages[2])*c == nugs:
+                    #pack combos exist
+                    packse = True
+                    #print("possible combos:", a, "6p" , b, "9p", c, "20p")
+    return packse
+
+for n in range(1, 150):   
+    # only search for solutions up to size 150
+    # if there are 6 consecutive number of nuggets that can be bought
+    if ppacksgen(n) == True and ppacksgen(n+1) == True and ppacksgen(n+2) == True and ppacksgen(n+3) == True and ppacksgen(n+4) == True and ppacksgen(n+5) == True: 
+        ctr += 1
+    #If not, n cannot be bought in exact quantity, save n 
+    elif ppacks(n) == False: 
+        dne.append(n)
+        bestSoFar = dne[-1]
+        
+print("Given package sizes", packages[0], packages[1], "and", packages[2], ''', the largest number of McNuggets that 
+cannot be bought in exact quantity is:''', bestSoFar)
